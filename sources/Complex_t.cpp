@@ -75,15 +75,19 @@ Complex_t Complex_t::operator-=(const Complex_t& z)
 
 Complex_t Complex_t::operator*=(const Complex_t& z)
 {
-	_re = _re * z._re - _im * z._im;
+	double tmp_r = _re;
+	tmp_r = _re * z._re - _im * z._im;
 	_im = _re * z._im + _im * z._re;
+	_re = tmp_r;
 	return *this;
 }
 
 Complex_t Complex_t::operator/=(const Complex_t& z)
 {
-	_re = (_re * z._re + _im * z._im) / (z._re * z._re + z._im * z._im);
+	double tmp_r = _re;
+	tmp_r = (_re * z._re + _im * z._im) / (z._re * z._re + z._im * z._im);
 	_im = (z._re * _im - _re * z._im) / (z._re * z._re + z._im * z._im);
+	_re = tmp_r;
 	return *this;
 }
 
