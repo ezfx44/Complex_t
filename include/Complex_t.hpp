@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <string.h>
 #ifndef COMPLEX_T_H_
 #define COMPLEX_T_H_
 class Complex_t
