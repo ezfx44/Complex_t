@@ -75,7 +75,7 @@ SCENARIO("complex division", "[div]") {
 }
 
 SCENARIO("complex operator *", "[op*]") {
-	Complex_t x(1, 2), second(3, 4), third(-5, 10);
+	Complex_t x(1, 2), y(3, 4), z(-5, 10);
 	REQUIRE((x * y) == z);
 }
 
