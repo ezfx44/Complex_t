@@ -6,6 +6,16 @@ Complex_t::Complex_t(double re, double im) : _re(re), _im(im) {}
 
 Complex_t::Complex_t(const Complex_t& z) : _re(z._re), _im(z._im) {}
 
+double Complex_t::_real()
+{
+	return _re;
+}
+
+double Complex_t::_imag()
+{
+	return _im;
+}
+
 void Complex_t::print(std::ostream& os) const
 {
 	if (_im < 0)
