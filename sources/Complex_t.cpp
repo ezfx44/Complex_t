@@ -115,11 +115,11 @@ std::basic_ostream<CharT, Traits>& operator <<(std::basic_ostream<CharT, Traits>
 {
 	if (_im < 0)
 	{
-		os << _re << _im << "i" << std::endl;
+		os << z._re << z._im << "i" << std::endl;
 	}
 	else
 	{
-		os << _re << "+" << _im << "i" << std::endl;
+		os << z._re << "+" << z._im << "i" << std::endl;
 	}
 	return os;
 }
