@@ -6,12 +6,12 @@ Complex_t::Complex_t(double re, double im) : _re(re), _im(im) {}
 
 Complex_t::Complex_t(const Complex_t& z) : _re(z._re), _im(z._im) {}
 
-double Complex_t::_real()
+double Complex_t::real()
 {
 	return _re;
 }
 
-double Complex_t::_imag()
+double Complex_t::imag()
 {
 	return _im;
 }
