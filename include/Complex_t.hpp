@@ -14,8 +14,8 @@ public:
 	Complex_t sub(const Complex_t&) const;
 	Complex_t multipl(int a) const;
 	Complex_t div(int a) const;
-	double real();
-	double imag();
+	double real() const;
+	double imag() const;
 	Complex_t(const Complex_t&);
 	Complex_t operator*(const Complex_t&) const;
 	Complex_t operator/(const Complex_t&) const;
@@ -25,11 +25,9 @@ public:
 	Complex_t operator/=(const Complex_t&);
 	Complex_t operator=(const Complex_t&);
 	bool operator==(const Complex_t&);
-	/*
-	template <class CharT, class Traits, class Allocator>
-	std::basic_ostream<charT, Traits>& operator <<(std::basic_ostream<charT, Traits>&, const Complex_t&);
-	template <class CharT, class Traits, class Allocator>
-	std::basic_istream<charT, Traits>& operator >> (std::basic_istream<charT, Traits>&, Complex_t&);
-	*/
+	template <class CharT, class Traits>
+	friend std::basic_ostream<CharT, Traits>& operator <<(std::basic_ostream<CharT, Traits>&, const Complex_t&);
+	template <class CharT, class Traits>
+	friend std::basic_istream<CharT, Traits>& operator >> (std::basic_istream<CharT, Traits>&, Complex_t&);
 };
 #endif
