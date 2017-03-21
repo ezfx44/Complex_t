@@ -1,23 +1,34 @@
-#include <fstream>
 #include <iostream>
-class Matrix
+#include <string>
+#ifndef COMPLEX_T_H_
+#define COMPLEX_T_H_
+class Complex_t
 {
 private:
-	int row, column;
-	int **arr;
+	double _re, _im;
 public:
-	auto rows() -> unsigned int;
-    	auto columns() -> unsigned int;
-	Matrix(int side = 3);
-	Matrix(int, int);
-	~Matrix();
-	Matrix(const Matrix&);
-	void fill_matrix(const char*);
-	void show_matrix() const;
-	Matrix operator+(const Matrix&) const;
-	Matrix operator*(const Matrix&) const;
-	Matrix operator=(const Matrix&);
-	bool operator==(const Matrix&) const;
-	friend std::istream& operator >> (std::istream&, Matrix&);
-	friend std::ostream& operator << (std::ostream&, const Matrix&);
+	Complex_t();
+	Complex_t(double, double);
+	void print(std::ostream&) const;
+	Complex_t add(const Complex_t&) const;
+	Complex_t sub(const Complex_t&) const;
+	Complex_t multipl(int a) const;
+	Complex_t div(int a) const;
+
+	Complex_t(const Complex_t&);
+	Complex_t operator*(const Complex_t&) const;
+	Complex_t operator/(const Complex_t&) const;
+	Complex_t operator+=(const Complex_t&);
+	Complex_t operator-=(const Complex_t&);
+	Complex_t operator*=(const Complex_t&);
+	Complex_t operator/=(const Complex_t&);
+	Complex_t operator=(const Complex_t&);
+	bool operator==(const Complex_t&);
+	/*
+	template <class CharT, class Traits, class Allocator>
+	std::basic_ostream<charT, Traits>& operator <<(std::basic_ostream<charT, Traits>&, const Complex_t&);
+	template <class CharT, class Traits, class Allocator>
+	std::basic_istream<charT, Traits>& operator >> (std::basic_istream<charT, Traits>&, Complex_t&);
+	*/
 };
+#endif
