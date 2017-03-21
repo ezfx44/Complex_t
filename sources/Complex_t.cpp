@@ -6,12 +6,12 @@ Complex_t::Complex_t(double re, double im) : _re(re), _im(im) {}
 
 Complex_t::Complex_t(const Complex_t& z) : _re(z._re), _im(z._im) {}
 
-double Complex_t::real()
+double Complex_t::real() const
 {
 	return _re;
 }
 
-double Complex_t::imag()
+double Complex_t::imag() const
 {
 	return _im;
 }
@@ -109,9 +109,9 @@ bool Complex_t::operator==(const Complex_t& z)
 		return false;
 	}
 }
-/*
-template <class CharT, class Traits, class Allocator>
-std::basic_ostream<charT, Traits>& Complex_t::operator <<(std::basic_ostream<charT, Traits>& os, const Complex_t& z)
+
+template <class CharT, class Traits>
+std::basic_ostream<CharT, Traits>& operator <<(std::basic_ostream<CharT, Traits>& os, const Complex_t& z)
 {
 	if (_im < 0)
 	{
@@ -124,8 +124,8 @@ std::basic_ostream<charT, Traits>& Complex_t::operator <<(std::basic_ostream<cha
 	return os;
 }
 
-template <class CharT, class Traits, class Allocator>
-std::basic_istream<charT, Traits>& Complex_t::operator >> (std::basic_istream<charT, Traits>& is, Complex_t& z)
+template <class CharT, class Traits>
+std::basic_istream<CharT, Traits>& operator >> (std::basic_istream<CharT, Traits>& is, Complex_t& z)
 {
 	std::cout << "Введите действительную часть:";
 	is >> z._re;
@@ -133,4 +133,3 @@ std::basic_istream<charT, Traits>& Complex_t::operator >> (std::basic_istream<ch
 	is >> z._im
 	return is;
 }
-*/
