@@ -1,171 +1,122 @@
-#include "matrix.hpp"
-auto Matrix::rows() -> unsigned int
-{
-    return row;
-}
+#include "Complex_t.hpp"
 
-auto Matrix::columns() -> unsigned int
-{
-    return column;
-}
+Complex_t::Complex_t() : _re(0.0), _im(0.0) {}
 
-Matrix::Matrix(int side) : row(side), column(side)
+Complex_t::Complex_t(double re, double im) : _re(re), _im(im) {}
+
+Complex_t::Complex_t(const Complex_t& z) : _re(z._re), _im(z._im) {}
+
+void Complex_t::print(std::ostream& os) const
 {
-	arr = new int*[row];
-	for (int i = 0; i < row; i++)
+	if (_im < 0)
 	{
-		arr[i] = new int[column];
-		for (int j = 0; j < column; j++)
-		{
-			arr[i][j] = 0;
-		}
-	}
-}
-
-Matrix::Matrix(int r, int c) : row(r), column(c)
-{
-	arr = new int*[r];
-	for (int i = 0; i < r; i++)
-	{
-		arr[i] = new int[c]{0};
-	}
-}
-
-Matrix::Matrix(const Matrix& a) :row(a.row), column(a.column)
-{
-	arr = new int*[row];
-	for (int i = 0; i < row; i++)
-	{
-		arr[i] = new int[column];
-		for (int j = 0; j < column; j++)
-		{
-			arr[i][j] = a.arr[i][j];
-		}
-	}
-}
-
-Matrix::~Matrix()
-{
-	for (int i = 0; i < row; i++) {
-		delete[] arr[i];
-	}
-	delete[] arr;
-}
-
-void Matrix::fill_matrix(const char* name)
-{
-	std::ifstream fin(name);
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			fin >> arr[i][j];
-		}
-	}
-}
-
-void Matrix::show_matrix() const
-{
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			std::cout.width(4);
-			std::cout << arr[i][j] << " ";
-		}
-		std::cout << '\n';
-	}
-	std::cout << std::endl;
-}
-
-Matrix Matrix::operator+(const Matrix& m) const
-{
-	Matrix help(row, column);
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			help.arr[i][j] = arr[i][j] + m.arr[i][j];
-		}
-	}
-	return help;
-}
-
-
-
-Matrix Matrix::operator*(const Matrix& m) const
-{
-	Matrix help(row, column);
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			help.arr[i][j] = 0;
-			for (int k = 0; k < m.row; k++)
-			{
-				help.arr[i][j] += arr[i][k] * m.arr[k][j];
-			}
-		}
-	}
-	return help;
-}
-
-Matrix Matrix::operator=(const Matrix& x)
-{
-	for (int i = 0; i < row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			arr[i][j] = x.arr[i][j];
-		}
-	}
-	return *this;
-}
-bool Matrix::operator==(const Matrix& m) const
-{
-	if (row != m.row || column != m.column)
-	{
-		return false;
+		os << _re << _im << "i" << std::endl;
 	}
 	else
 	{
-		for (int i = 0; i < row; i++)
-		{
-			for (int j = 0; j < column; j++)
-			{
-				if (arr[i][j] != m.arr[i][j])
-				{
-					return false;
-				}
-			}
-		}
+		os << _re << "+" << _im << "i" << std::endl;
 	}
-	return true;
 }
-std::istream& operator >> (std::istream& is, Matrix& m)
+
+Complex_t Complex_t::add(const Complex_t& x) const
 {
-	for (int i = 0; i < m.row; i++)
-	{
-		for (int j = 0; j < m.column; j++)
-		{
-			std::cout << "arr[" << i << "][" << j << "] = ";
-			is >> m.arr[i][j];
-			std::cout << std::endl;
-		}
-	}
-	return is;
+	return Complex_t(_re + x._re, _im + x._im);
 }
-std::ostream& operator << (std::ostream& os, const Matrix& m)
+
+Complex_t Complex_t::sub(const Complex_t& x) const
 {
-	for (int i = 0; i < m.row; i++)
+	return Complex_t(_re - x._re, _im - x._im);
+}
+
+Complex_t Complex_t::multipl(int a) const
+{
+	return Complex_t(_re * a, _im * a);
+}
+
+Complex_t Complex_t::div(int a) const
+{
+	return Complex_t(_re / a, _im / a);
+}
+
+Complex_t Complex_t::operator*(const Complex_t& z) const
+{
+	return Complex_t(_re * z._re - _im * z._im, _re * z._im + _im * z._re);
+}
+
+Complex_t Complex_t::operator/(const Complex_t& z) const
+{
+	return Complex_t((_re * z._re + _im * z._im) / (z._re * z._re + z._im * z._im),
+					(z._re * _im - _re * z._im) / (z._re * z._re + z._im * z._im));
+}
+
+Complex_t Complex_t::operator+=(const Complex_t& z)
+{
+	_re += z._re;
+	_im += z._im;
+	return *this;
+}
+
+Complex_t Complex_t::operator-=(const Complex_t& z)
+{
+	_re -= z._re;
+	_im -= z._im;
+	return *this;
+}
+
+Complex_t Complex_t::operator*=(const Complex_t& z)
+{
+	_re = _re * z._re - _im * z._im;
+	_im = _re * z._im + _im * z._re;
+	return *this;
+}
+
+Complex_t Complex_t::operator/=(const Complex_t& z)
+{
+	_re = (_re * z._re + _im * z._im) / (z._re * z._re + z._im * z._im);
+	_im = (z._re * _im - _re * z._im) / (z._re * z._re + z._im * z._im);
+	return *this;
+}
+
+Complex_t Complex_t::operator=(const Complex_t& z)
+{
+	_re = z._re;
+	_im = z._im;
+	return *this;
+}
+
+bool Complex_t::operator==(const Complex_t& z)
+{
+	if (_re == z._re && _im == z._im)
 	{
-		for (int j = 0; j < m.column; j++)
-		{
-			std::cout.width(4);
-			std::cout << m.arr[i][j] << " ";
-		}
-		std::cout << '\n';
+		return true;
 	}
-	std::cout << std::endl;
+	else
+	{
+		return false;
+	}
+}
+/*
+template <class CharT, class Traits, class Allocator>
+std::basic_ostream<charT, Traits>& Complex_t::operator <<(std::basic_ostream<charT, Traits>& os, const Complex_t& z)
+{
+	if (_im < 0)
+	{
+		os << _re << _im << "i" << std::endl;
+	}
+	else
+	{
+		os << _re << "+" << _im << "i" << std::endl;
+	}
 	return os;
 }
+
+template <class CharT, class Traits, class Allocator>
+std::basic_istream<charT, Traits>& Complex_t::operator >> (std::basic_istream<charT, Traits>& is, Complex_t& z)
+{
+	std::cout << "Введите действительную часть:";
+	is >> z._re;
+	std::cout << "Введите мнимую часть:";
+	is >> z._im
+	return is;
+}
+*/
