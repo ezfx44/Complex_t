@@ -14,7 +14,8 @@ public:
 	Complex_t sub(const Complex_t&) const;
 	Complex_t multipl(int a) const;
 	Complex_t div(int a) const;
-
+	double real();
+	double imag();
 	Complex_t(const Complex_t&);
 	Complex_t operator*(const Complex_t&) const;
 	Complex_t operator/(const Complex_t&) const;
