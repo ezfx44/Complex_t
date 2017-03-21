@@ -113,7 +113,7 @@ bool Complex_t::operator==(const Complex_t& z)
 template <class CharT, class Traits>
 std::basic_ostream<CharT, Traits>& operator <<(std::basic_ostream<CharT, Traits>& os, const Complex_t& z)
 {
-	if (_im < 0)
+	if (z._im < 0)
 	{
 		os << z._re << z._im << "i" << std::endl;
 	}
@@ -130,6 +130,6 @@ std::basic_istream<CharT, Traits>& operator >> (std::basic_istream<CharT, Traits
 	std::cout << "Введите действительную часть:";
 	is >> z._re;
 	std::cout << "Введите мнимую часть:";
-	is >> z._im
+	is >> z._im;
 	return is;
 }
