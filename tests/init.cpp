@@ -59,19 +59,19 @@ SCENARIO("complex operator =", "[op=]") {
 
 
 SCENARIO("complex multiplication ", "[multipl]") {
-	Complex_t x(1, 1);
+	Complex_t x(1, 1), y;
 	int num = 5;
-	x.multipl(num);
-	REQUIRE(x.real() == 5);
-	REQUIRE(x.imag() == 5);
+	y = x.multipl(num);
+	REQUIRE(y.real() == 5);
+	REQUIRE(y.imag() == 5);
 }
 
 SCENARIO("complex division", "[div]") {
-	Complex_t x(10, 10);
+	Complex_t x(10, 10), y;
 	int num = 2;
-	x.div(num);
-	REQUIRE(x.real() == 5);
-	REQUIRE(x.imag() == 5);
+	y = x.div(num);
+	REQUIRE(y.real() == 5);
+	REQUIRE(y.imag() == 5);
 }
 
 SCENARIO("complex operator *", "[op*]") {
