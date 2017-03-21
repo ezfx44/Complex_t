@@ -1,39 +1,97 @@
-#include <matrix.hpp>
+#include <complex.hpp>
 #include <catch.hpp>
-#include <string>
 
-SCENARIO("matrix init", "[init]") {
-	Matrix matr;
-	REQUIRE(matr.rows() == 3);
-	REQUIRE(matr.columns() == 3);
-	Matrix matr2(5, 5);
-	REQUIRE(matr2.rows() == 5);
-	REQUIRE(matr2.columns() == 5);
-	Matrix matr3(matr);
-	REQUIRE(matr.rows() == 3);
-	REQUIRE(matr.columns() == 3);
+SCENARIO("complex init w/o params", "[init w/o par]") {
+	Complex_t z;
+	REQUIRE(z.real() == 0);
+	REQUIRE(z.imag() == 0);
 }
 
-SCENARIO("all-in-one test for methods", "[methods]") {
-	std::ofstream mx1("mx1.txt");
-	mx1 << "1 2 3 4 5 6 7 8 9";
-	mx1.close();
-	std::ofstream mx2("mx2.txt");
-	mx2 << "9 8 7 6 5 4 3 2 1";
-	mx2.close();
-	std::ofstream mx_sum("mx_sum.txt");
-	mx_sum << "10 10 10 10 10 10 10 10 10";
-	mx_sum.close();
-	std::ofstream mx_comp("mx_comp.txt");
-	mx_comp << "30 24 18 84 69 54 138 114 90";
-	mx_comp.close();
-	Matrix m1, m2, sum, comp;
-	m1.fill_matrix("mx1.txt");
-	m2.fill_matrix("mx2.txt");
-	sum.fill_matrix("mx_sum.txt");
-	comp.fill_matrix("mx_comp.txt");
-	REQUIRE (sum == m1 + m2);
-	REQUIRE (comp == m1 * m2);
-	m1 = m2;
-	REQUIRE (m1 == m2);
+SCENARIO("complex init with params", "[init w par]") {
+	Complex z(5, 5);
+	REQUIRE(z.real() == 5);
+	REQUIRE(z.imag() == 5);
+}
+
+SCENARIO("complex copy init", "[copy init]") {
+	Complex x(5, 5);
+	Complex y(x);
+	REQUIRE(y.real() == 5);
+	REQUIRE(y.imag() == 5);
+}
+SCENARIO("complex sum", "[sum]") {
+	Complex x(1, 1), y(2, 2), z(3, 3);
+	REQUIRE(x.add(y) == z);
+}
+
+SCENARIO("complex subtraction", "[sub]") {
+	Complex x(3, 3), y(2, 2), z(1, 1);
+	REQUIRE(x.sub(y) == z);
+}
+
+SCENARIO("complex operator +=", "[op+=]") {
+	Complex x(1, 1), y(2, 2), z(3, 3);
+	x += y;
+	REQUIRE(x == z);
+}
+SCENARIO("complex operator -=", "[op-=]") {
+	Complex x(3, 3), y(2, 2), z(1, 1);
+	x -= y;
+	REQUIRE(x == z);
+}
+
+SCENARIO("==", "[equal]") {
+	Complex x(1, 1);
+	Complex y(1, 1);
+	bool equal = false;
+	if (x == y)
+	{
+		equal = true;
+	}
+	REQUIRE(equal == true);
+}
+
+SCENARIO("complex operator =", "[op=]") {
+	Complex x(1, 1), y(2, 2);
+	x = y;
+	REQUIRE(x == y);
+}
+
+
+SCENARIO("complex multiplication ", "[multipl]") {
+	Complex x(1, 1);
+	int num = 5;
+	x.multipl(num);
+	REQUIRE(x.real() == 5);
+	REQUIRE(x.imag() == 5);
+}
+
+SCENARIO("complex division", "[div]") {
+	Complex x(10, 10);
+	int num = 2;
+	x.div(num);
+	REQUIRE(x.real() == 5);
+	REQUIRE(x.imag() == 5);
+}
+
+SCENARIO("complex operator *", "[op*]") {
+	Complex x(1, 2), second(3, 4), third(-5, 10);
+	REQUIRE((x * y) == z);
+}
+
+SCENARIO("complex operator /", "[op/]") {
+	Complex x(5, 3), y(1, 1), z(4, -1);
+	REQUIRE((x / y) == z);
+}
+
+SCENARIO("complex operator *=", "[op*=]") {
+	Complex x(1, 2), y(3, 4), z(-5, 10);
+	x *= y;
+	REQUIRE(x == z);
+}
+
+SCENARIO("complex operator /=", "[op/=]") {
+	Complex x(5, 3), y(1, 1), z(4, -1);
+	x /= y;
+	REQUIRE(x == z);
 }
