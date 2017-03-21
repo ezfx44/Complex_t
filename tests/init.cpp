@@ -1,5 +1,4 @@
-#include <complex.hpp>
-#include <catch.hpp>
+#include <Complex_t.hpp>
 
 SCENARIO("complex init w/o params", "[init w/o par]") {
 	Complex_t z;
