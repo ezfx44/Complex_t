@@ -100,14 +100,7 @@ Complex_t Complex_t::operator=(const Complex_t& z)
 
 bool Complex_t::operator==(const Complex_t& z)
 {
-	if (_re == z._re && _im == z._im)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (_re == z._re && _im == z._im)
 }
 
 template <class CharT, class Traits>
